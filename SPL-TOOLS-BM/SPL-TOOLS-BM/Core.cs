@@ -2,7 +2,7 @@
 {
     public class Core
     {
-        public string GetToken ()
+        public string GetToken (string  HiveAccount , string PostingKey)
         {
             return  "not yet implenmeted";
            
