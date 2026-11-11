@@ -55,6 +55,7 @@ namespace SPL_TOOLS_BM
             }
             catch (Exception ex)
             {
+                throw new Exception($"Erreur lors de la récupération du token : {ex.Message}");
                 Console.WriteLine($"Erreur lors de la récupération du token : {ex.Message}");
                 return null;
             }
