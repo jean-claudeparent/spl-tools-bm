@@ -20,7 +20,7 @@ namespace SPL_TOOLS_BM
                 long timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
                 string message = $"{hiveAccount}{timestamp}";
 
-                // 1. Hacher le message brut en SHA-256 (sans préfixe Bitcoin)
+                // 1. Hach the raw message in SHA-256 (without  Bitcoin prefix)
                 byte[] messageBytes = Encoding.UTF8.GetBytes(message);
                 byte[] hashBytes = SHA256.HashData(messageBytes);
                 uint256 hash = new uint256(hashBytes);
@@ -55,9 +55,8 @@ namespace SPL_TOOLS_BM
             }
             catch (Exception ex)
             {
-                throw new Exception($"Erreur lors de la récupération du token : {ex.Message}");
-                Console.WriteLine($"Erreur lors de la récupération du token : {ex.Message}");
-                return null;
+                throw new Exception($"Error while getting the token : {ex.Message}");
+
             }
         }
 
