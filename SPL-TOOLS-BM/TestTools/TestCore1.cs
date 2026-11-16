@@ -16,7 +16,7 @@ namespace TestTools
                 string Result = await myCore.GetTokenAsync("unknownuser1756","falsepostingkey");
             } catch   (Exception ex)
             { 
-            Assert.IsTrue (ex.Message.Contains("Invalid base58 data")  );
+            Assert.Contains  ("Invalid base58 data", ex.Message);
             }
 
 
@@ -30,11 +30,11 @@ namespace TestTools
             SPL_TOOLS_BM.Core myCore = new SPL_TOOLS_BM.Core();
             try
             {
-                string Result = await myCore.GetTokenAsync("unknownuser1756", "falsepostingkey");
+                string Result = await myCore.GetTokenAsync("unknownuser1756", "L4FYU2Q8pALbXdsyiFVdUT4DS2miNCYZKmoBV7VhLGX9gvawtkvo");
             }
             catch (Exception ex)
             {
-                Assert.IsTrue(ex.Message.Contains("Invalid base58 data"));
+                Assert.Contains  ("Invalid base58 data", ex.Message);
             }
 
 
