@@ -34,7 +34,7 @@ namespace TestTools
             }
             catch (Exception ex)
             {
-                Assert.Contains  ("Invalid base58 data", ex.Message);
+                Assert.Contains  ("Connection was successfull but the token has a problem", ex.Message);
             }
 
 

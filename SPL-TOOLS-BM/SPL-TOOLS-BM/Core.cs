@@ -25,19 +25,19 @@ namespace SPL_TOOLS_BM
                 byte[] hashBytes = SHA256.HashData(messageBytes);
                 uint256 hash = new uint256(hashBytes);
 
-                // 2. Charger la clé privée WIF Hive et générer une signature compacte (65 octets)
+                // 2. Load' the private key in WIF Hive format and génerate a signature compressed (65 bytes)
                 BitcoinSecret secret = new BitcoinSecret(postingKey, Network.Main);
                 CompactSignature compactSig = secret.PrivateKey.SignCompact(hash, forceLowR: true);
 
-                // 3. Assembler l'octet de récupération (RecoveryId + 31 pour clé compressée) et les 64 octets (R + S)
+                // 3. Assemble the byte of recovery (RecoveryId + 31 for compress key) and the 64 bytes
                 byte[] fullSig = new byte[65];
                 fullSig[0] = (byte)(compactSig.RecoveryId + 31);
                 Array.Copy(compactSig.Signature, 0, fullSig, 1, 64);
 
-                // 4. Convertir en hexadécimal minuscule (format attendu par Splinterlands)
+                // 4. convert to hex lowercase (the format that splinterlands use)
                 string signatureHex = Convert.ToHexString(fullSig).ToLowerInvariant();
 
-                // 5. Appel à l'API de connexion Splinterlands
+                // 5. Call the connection api for splinterlands
                 string url = $"{SplinterlandsApiBase}/players/login?name={Uri.EscapeDataString(hiveAccount)}&ts={timestamp}&sig={signatureHex}";
                 HttpResponseMessage response = await _httpClient.GetAsync(url);
                 response.EnsureSuccessStatusCode();
@@ -50,7 +50,7 @@ namespace SPL_TOOLS_BM
                     {
                         return tokenElement.GetString();
                     }
-                    throw new Exception("Connexion réussie, mais aucun token retourné.");
+                    throw new Exception("Connection was successfull but the token has a problem : " + doc.ToString()  );
                 }
             }
             catch (Exception ex)
