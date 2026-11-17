@@ -41,5 +41,25 @@ namespace TestTools
 
             } // end method
 
-} // end class
+
+        [TestMethod]
+        public async Task TestGetTokenkeyOk2()
+        {
+            // correct account and correct encoded  key but not the real key of the account
+            SPL_TOOLS_BM.Core myCore = new SPL_TOOLS_BM.Core();
+            try
+            {
+                string Result = await myCore.GetTokenAsync("spidereyes", "L4FYU2Q8pALbXdsyiFVdUT4DS2miNCYZKmoBV7VhLGX9gvawtkvo");
+            }
+            catch (Exception ex)
+            {
+                Assert.Contains("Connection was successfull but the token has a problem", ex.Message);
+            }
+
+
+
+        } // end method
+
+
+    } // end class
 }  //end namespace
