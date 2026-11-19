@@ -60,6 +60,30 @@ namespace TestTools
 
         } // end method
 
+        [TestMethod]
+        public async Task TestGetTokenallOk2()
+        {
+            // correct account and correct encoded  key and   the real key of the account
+            SPL_TOOLS_BM.Core myCore = new SPL_TOOLS_BM.Core();
+            string keyfile = @"c:\devcenter\secrets\spidereyes-postingkey.txt";
+            Assert.IsTrue (File.Exists (keyfile), "the file containig the key for the test is missing : " + keyfile);
+            string HiveKey = File.ReadAllText(keyfile);
+            Assert.IsTrue(HiveKey.Length == 51, "The hive key must have a length of 51 characters" );
+            
+            try
+            {
+
+                string Result = await myCore.GetTokenAsync("spidereyes", HiveKey);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail (ex.Message);
+            }
+
+
+
+        } // end method
+
 
     } // end class
 }  //end namespace

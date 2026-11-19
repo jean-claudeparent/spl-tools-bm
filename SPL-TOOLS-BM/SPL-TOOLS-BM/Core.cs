@@ -4,6 +4,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic;
 using NBitcoin;
 
 namespace SPL_TOOLS_BM
@@ -17,6 +18,13 @@ namespace SPL_TOOLS_BM
         {
             try
             {
+                if ((postingKey.Length  == 51) && (postingKey [0] == '5'))                    {
+                    // the key is not compressed
+                    postingKey  = HiveKeyConverter.CompressHiveWif(postingKey );
+
+
+
+                        }
                 long timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
                 string message = $"{hiveAccount}{timestamp}";
 
@@ -50,12 +58,13 @@ namespace SPL_TOOLS_BM
                     {
                         return tokenElement.GetString();
                     }
-                    throw new Exception("Connection was successfull but the token has a problem : " + doc.ToString()  );
+                    throw new Exception("s01 Connection was successfull but the token has a problem : json=" +  JsonSerializer.Serialize(doc));
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error while getting the token : {ex.Message}");
+                 
+                throw new Exception("s02 Error while getting the token : " + ex.Message + " key=" + postingKey   );
 
             }
         }
