@@ -24,6 +24,7 @@ namespace TestTools
             {
 
                 string Token = await myCore.GetTokenAsync("spidereyes", HiveKey);
+                Assert.IsGreaterThan(9, Token.Length,Token );
                 String Result = await myCore.GetBattlesAsync (Token , "blindmage")  ; 
             }
             catch (Exception ex)

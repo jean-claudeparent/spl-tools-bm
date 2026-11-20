@@ -50,7 +50,7 @@ namespace SPL_TOOLS_BM
                 string signatureHex = Convert.ToHexString(fullSig).ToLowerInvariant();
 
                 // 5. Call the connection api for splinterlands
-                string url = $"{SplinterlandsApiBase}/players/login?name={Uri.EscapeDataString(hiveAccount)}&ts={timestamp}&sig={signatureHex}";
+                string url = $"{SplinterlandsApiBase}/players/v2/login?name={Uri.EscapeDataString(hiveAccount)}&ts={timestamp}&sig={signatureHex}";
                 HttpResponseMessage response = await _httpClient.GetAsync(url);
                 response.EnsureSuccessStatusCode();
 
