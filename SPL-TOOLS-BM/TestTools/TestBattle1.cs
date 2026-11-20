@@ -24,7 +24,7 @@ namespace TestTools
             {
 
                 string Token = await myCore.GetTokenAsync("spidereyes", HiveKey);
-                String Result = await myCore.GetBattleAsync (Token , "blindmage")  ; 
+                String Result = await myCore.GetBattlesAsync (Token , "blindmage")  ; 
             }
             catch (Exception ex)
             {

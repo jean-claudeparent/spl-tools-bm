@@ -6,6 +6,8 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.VisualBasic;
 using NBitcoin;
+using System.IO;
+
 
 namespace SPL_TOOLS_BM
 {
@@ -75,16 +77,45 @@ namespace SPL_TOOLS_BM
         {
             return GetTokenAsync(hiveAccount, postingKey).GetAwaiter().GetResult();
         }
-
-        public async Task<string> GetBattleAsync(string  Token, string Player)
+        public async Task<string> GetBattlesAsync(string Token, string Player)
         {
-            if (! Directory.Exists(OutputFolder )  )
+            try
             {
-                Directory.CreateDirectory(OutputFolder ); 
-                
-                    }
-            return "not yet implemented";
+                if (string.IsNullOrWhiteSpace(Player))
+                {
+                    throw new ArgumentException("Player name cannot be null or empty.");
+                }
 
+                if (!Directory.Exists(OutputFolder))
+                {
+                    Directory.CreateDirectory(OutputFolder);
+                }
+
+                // Build the request URL with player, username, and authentication token
+                string url = $"{SplinterlandsApiBase}/battle/history?player={Uri.EscapeDataString(Player)}";
+
+                if (!string.IsNullOrWhiteSpace(Token))
+                {
+                    url += $"&username={Uri.EscapeDataString(Player)}&token={Uri.EscapeDataString(Token)}";
+                }
+
+                HttpResponseMessage response = await _httpClient.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+
+                string jsonResponse = await response.Content.ReadAsStringAsync();
+
+                // Save the raw JSON response to your OutputFolder
+                string fileName = $"battles_{Player}_{DateTime.UtcNow:yyyyMMdd_HHmmss}.json";
+                string filePath = Path.Combine(OutputFolder, fileName);
+                await File.WriteAllTextAsync(filePath, jsonResponse, Encoding.UTF8);
+
+                return jsonResponse;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"s03 Error while getting battles for {Player}: {ex.Message}");
+            }
         }
+
     } // end class
     }  // end namespace
