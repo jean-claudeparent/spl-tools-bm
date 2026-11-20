@@ -13,13 +13,15 @@ namespace SPL_TOOLS_BM
     {
         private static readonly HttpClient _httpClient = new HttpClient();
         private const string SplinterlandsApiBase = "https://api2.splinterlands.com";
+        public string OutputFolder = @"c:\devcenter\data\spl-tools-bm\";
+        
 
         public async Task<string> GetTokenAsync(string hiveAccount, string postingKey)
         {
             try
             {
                 if ((postingKey.Length  == 51) && (postingKey [0] == '5'))                    {
-                    // the key is not compressed
+                    // the key is not compressed, compress it
                     postingKey  = HiveKeyConverter.CompressHiveWif(postingKey );
 
 
@@ -64,7 +66,7 @@ namespace SPL_TOOLS_BM
             catch (Exception ex)
             {
                  
-                throw new Exception("s02 Error while getting the token : " + ex.Message + " key=" + postingKey   );
+                throw new Exception("s02 Error while getting the token : " + ex.Message );
 
             }
         }
@@ -73,5 +75,16 @@ namespace SPL_TOOLS_BM
         {
             return GetTokenAsync(hiveAccount, postingKey).GetAwaiter().GetResult();
         }
-    }
-}
+
+        public async Task<string> GetBattleAsync(string  Token, string Player)
+        {
+            if (! Directory.Exists(OutputFolder )  )
+            {
+                Directory.CreateDirectory(OutputFolder ); 
+                
+                    }
+            return "not yet implemented";
+
+        }
+    } // end class
+    }  // end namespace
