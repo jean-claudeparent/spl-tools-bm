@@ -117,5 +117,16 @@ namespace SPL_TOOLS_BM
             }
         }
 
+        public static string FormatJson (string  rawawjson)
+        {
+            using JsonDocument doc = JsonDocument.Parse(rawawjson);
+            return  JsonSerializer.Serialize(doc, new JsonSerializerOptions
+            {
+                WriteIndented = true
+            });
+
+
+        }
+
     } // end class
     }  // end namespace
