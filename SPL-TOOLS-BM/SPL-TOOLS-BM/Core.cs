@@ -103,9 +103,10 @@ namespace SPL_TOOLS_BM
                 response.EnsureSuccessStatusCode();
 
                 string jsonResponse = await response.Content.ReadAsStringAsync();
+                jsonResponse = FormatJson(jsonResponse);
 
                 // Save the raw JSON response to your OutputFolder
-                string fileName = $"battles_{Player}_{DateTime.UtcNow:yyyyMMdd_HHmmss}.json";
+                string fileName = $"battles_{Player}_{DateTime.UtcNow:yyyyMMdd_HHmmss}.json.txt";
                 string filePath = Path.Combine(OutputFolder, fileName);
                 await File.WriteAllTextAsync(filePath, jsonResponse, Encoding.UTF8);
 
@@ -122,7 +123,8 @@ namespace SPL_TOOLS_BM
             using JsonDocument doc = JsonDocument.Parse(rawawjson);
             return  JsonSerializer.Serialize(doc, new JsonSerializerOptions
             {
-                WriteIndented = true
+                WriteIndented = true,
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
             });
 
 
