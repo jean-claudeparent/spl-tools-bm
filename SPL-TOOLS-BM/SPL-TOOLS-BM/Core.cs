@@ -129,6 +129,12 @@ namespace SPL_TOOLS_BM
 
 
         }
+  // end method
 
+        public void ProcessBattles(string BattleHistory)
+        {
+            throw new Exception("not yet implemented");
+            
+                }
     } // end class
     }  // end namespace
