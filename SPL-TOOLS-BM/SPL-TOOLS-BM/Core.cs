@@ -16,6 +16,7 @@ namespace SPL_TOOLS_BM
         private static readonly HttpClient _httpClient = new HttpClient();
         private const string SplinterlandsApiBase = "https://api2.splinterlands.com";
         public string OutputFolder = @"c:\devcenter\data\spl-tools-bm\";
+        public string Player = "";
         
 
         public async Task<string> GetTokenAsync(string hiveAccount, string postingKey)
@@ -106,7 +107,7 @@ namespace SPL_TOOLS_BM
                 jsonResponse = FormatJson(jsonResponse);
 
                 // Save the raw JSON response to your OutputFolder
-                string fileName = $"battles_{Player}_{DateTime.UtcNow:yyyyMMdd_HHmmss}.json.txt";
+                string fileName = $"battles_{Player}_yyyyMMdd_HHmmss.json.txt";
                 string filePath = Path.Combine(OutputFolder, fileName);
                 await File.WriteAllTextAsync(filePath, jsonResponse, Encoding.UTF8);
 
@@ -129,12 +130,23 @@ namespace SPL_TOOLS_BM
 
 
         }
-  // end method
+        // end method
 
         public void ProcessBattles(string BattleHistory)
         {
-            throw new Exception("not yet implemented");
+            string StoryContent =  "not yet implemented";
+            WriteStory("20261125100000", StoryContent );
+
+        }
+
+        public void WriteStory(string Battledate, string StoryContent)
+        {
             
-                }
-    } // end class
+            string StoryFile = OutputFolder + Player +  Battledate +".story.txt";
+            File.WriteAllText(StoryFile , StoryContent); 
+
+        }
+
+
+} // end class
     }  // end namespace

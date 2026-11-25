@@ -50,6 +50,7 @@ namespace TestTools
 
                 string BattleHistory = File.ReadAllText(@"C:\devcenter\source\spl-tools-bm\SPL-TOOLS-BM\specs\battles_blindmage_20261125_140423.json.txt");
                 SPL_TOOLS_BM.Core myCore = new SPL_TOOLS_BM.Core();
+                myCore.Player = "blindmage"; 
                 myCore.ProcessBattles(BattleHistory ); 
 
             }
