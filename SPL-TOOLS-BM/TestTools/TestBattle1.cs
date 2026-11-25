@@ -37,7 +37,29 @@ namespace TestTools
 
 
         } // end method
+          // end method
 
+        // todo add this file in the ressources of the project
+        // "C:\devcenter\source\spl-tools-bm\SPL-TOOLS-BM\specs\battles_blindmage_20261125_140423.json.txt"
+        // to get a relative path
+        [TestMethod]
+        public void TestProcessBattleallOk()
+        {
+            try
+            {
 
+                string BattleHistory = File.ReadAllText(@"C:\devcenter\source\spl-tools-bm\SPL-TOOLS-BM\specs\battles_blindmage_20261125_140423.json.txt");
+                SPL_TOOLS_BM.Core myCore = new SPL_TOOLS_BM.Core();
+                myCore.ProcessBattles(BattleHistory ); 
+
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
+
+ 
+
+        } // method
     } // end class
-}  //end namespace
+    }  //end namespace
