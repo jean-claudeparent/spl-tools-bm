@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using NBitcoin;
+using System;
+using System.IO;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
-using Microsoft.VisualBasic;
-using NBitcoin;
-using System.IO;
 
 
 namespace SPL_TOOLS_BM
@@ -135,8 +136,17 @@ namespace SPL_TOOLS_BM
         public void ProcessBattles(string BattleHistory)
         {
             string StoryContent =  "not yet implemented";
-            WriteStory("20261125100000", StoryContent );
+            JsonNode root = JsonNode.Parse(BattleHistory)!;
+            JsonArray battles = root["battles"]!.AsArray();
 
+            for (int i = 0; i < battles.Count; i++)
+            {
+                JsonNode? battle = battles[i];
+                if (battle == null) continue;
+
+
+                WriteStory("20261125100000", StoryContent );
+            }
         }
 
         public void WriteStory(string Battledate, string StoryContent)
