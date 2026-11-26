@@ -15,6 +15,8 @@ namespace TestTools
         {
             // correct account and correct encoded  key and   the real key of the account
             SPL_TOOLS_BM.Core myCore = new SPL_TOOLS_BM.Core();
+            myCore.OutputFolder = myCore.OutputFolder + @"unit-test\";
+
             string keyfile = @"c:\devcenter\secrets\spidereyes-postingkey.txt";
             Assert.IsTrue (File.Exists (keyfile), "the file containig the key for the test is missing : " + keyfile);
             string HiveKey = File.ReadAllText(keyfile);
@@ -45,12 +47,14 @@ namespace TestTools
         [TestMethod]
         public void TestProcessBattleallOk()
         {
+            
             try
             {
 
                 string BattleHistory = File.ReadAllText(@"C:\devcenter\source\spl-tools-bm\SPL-TOOLS-BM\specs\battles_blindmage_20261125_140423.json.txt");
                 SPL_TOOLS_BM.Core myCore = new SPL_TOOLS_BM.Core();
-                myCore.Player = "blindmage"; 
+                myCore.Player = "blindmage";
+                myCore.OutputFolder = myCore.OutputFolder + @"unit-test\";
                 myCore.ProcessBattles(BattleHistory ); 
 
             }

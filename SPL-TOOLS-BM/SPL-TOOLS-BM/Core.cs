@@ -143,7 +143,7 @@ namespace SPL_TOOLS_BM
             {
                 JsonNode? battle = battles[i];
                 if (battle == null) continue;
-
+                StoryContent = battles[i].ToString();
 
                 WriteStory("20261125100000", StoryContent );
             }
